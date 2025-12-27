@@ -39,12 +39,6 @@ The application follows a three-stage pipeline architecture:
 - **Frontend**: HTML, CSS, JavaScript (for audio recording)
 - **Model Hosting**: Local Ollama server for translation inference
 
-### Model Logos
-
-- ![Whisper Logo](resource/logo_Whisper.jpg)
-- ![Gemma2 Logo](resource/logo_Gemma2.png)
-- ![Coqui TTS Logo](resource/logo_coqui.png)
-
 ## Installation
 
 ### Prerequisites
@@ -149,3 +143,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Google for Gemma2 language model
 - Coqui TTS for XTTS voice synthesis
 - Ollama for efficient model serving
+
+## Model Logos
+
+![Whisper Logo](resource/logo_Whisper.jpg)
+![Gemma2 Logo](resource/logo_Gemma2.png)
+![Coqui TTS Logo](resource/logo_coqui.png)
