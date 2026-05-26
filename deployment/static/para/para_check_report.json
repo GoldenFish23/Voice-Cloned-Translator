@@ -1,0 +1,601 @@
+{
+  "title": "TTS Parameter Analysis Report",
+  "description": "Comprehensive analysis of XTTS v2 parameters for voice cloning quality",
+  "parameters_tested": {
+    "temperature": "Controls randomness (0.0-1.0) - affects voice variation and stability",
+    "repetition_penalty": "Prevents repetitive patterns (higher = less repetition)",
+    "top_k": "Limits vocabulary choices (lower = more focused)",
+    "top_p": "Nucleus sampling for diversity (0-1.0)",
+    "gpt_cond_len": "Conditioning length for PROSODY/TIMING/ELONGATION (affects natural timings and word elongation)",
+    "max_ref_len": "Reference audio length (affects voice cloning strength)",
+    "enable_text_splitting": "Whether to split long texts"
+  },
+  "key_findings": {
+    "timings": "gpt_cond_len is the PRIMARY parameter affecting prosody and timing naturalness",
+    "elongation": "gpt_cond_len (15-20) and max_ref_len work together to control word elongation",
+    "voice_style": "max_ref_len and temperature control voice style consistency",
+    "stability": "repetition_penalty and temperature control output stability"
+  },
+  "recommendations": {
+    "for_natural_timings": "Use gpt_cond_len=12-15, temperature=0.2-0.3",
+    "for_word_elongation": "Use gpt_cond_len=15-20, max_ref_len=8-10",
+    "for_voice_cloning": "Use max_ref_len=12-15, temperature=0.1-0.25",
+    "for_balance": "Use temperature=0.25, repetition_penalty=12, top_k=50, top_p=0.8, gpt_cond_len=12, max_ref_len=12"
+  },
+  "test_results": {
+    "temperature_tests": [
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.1,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p1_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p1_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.75
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.6113333333333335
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.5,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p5_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p5_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 6.304666666666667
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.75,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p75_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p75_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.846
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 1.0,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_1p0_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_1p0_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 6.304666666666667
+      }
+    ],
+    "gpt_cond_len_tests": [
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 5,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_5_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_5_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 4.267333333333333
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 8,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_8_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_8_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.472666666666667
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 10,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_10_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_10_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 4.683333333333334
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.43
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 15,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_15_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_15_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.014
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 20,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_20_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_20_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.056666666666667
+      }
+    ],
+    "max_ref_len_tests": [
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 5,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_5_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_5_enable_text_splitting_False.wav",
+        "audio_length_seconds": 4.128666666666667
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 8,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_8_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_8_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.291333333333333
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 10,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_10_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_10_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.014
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.152666666666667
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 15,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_15_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_15_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.472666666666667
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 20,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_20_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_20_enable_text_splitting_False.wav",
+        "audio_length_seconds": 6.262
+      }
+    ],
+    "top_p_tests": [
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.5,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p5_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p5_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 4.918
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.65,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p65_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p65_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 4.960666666666667
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 4.822
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.9,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p9_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p9_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.515333333333333
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 1.0,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_1p0_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_1p0_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.654
+      }
+    ],
+    "top_k_tests": [
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 30,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_30_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_30_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.6113333333333335
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 40,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_40_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_40_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.6113333333333335
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.515333333333333
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 75,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_75_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_75_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.707333333333334
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 100,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_100_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_100_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.8886666666666665
+      }
+    ],
+    "repetition_penalty_tests": [
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 5.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_5p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_5p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.43
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 8.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_8p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_8p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.014
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 10.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_10p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_10p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 4.822
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 4.8646666666666665
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 15.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_15p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_15p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.376666666666667
+      }
+    ],
+    "optimal_combinations": [
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.1,
+          "repetition_penalty": 15.0,
+          "top_k": 40,
+          "top_p": 0.65,
+          "gpt_cond_len": 10,
+          "max_ref_len": 15,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p1_repetition_penalty_15p0_top_k_40_top_p_0p65_gpt_cond_len_10_max_ref_len_15_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p1_repetition_penalty_15p0_top_k_40_top_p_0p65_gpt_cond_len_10_max_ref_len_15_enable_text_splitting_False.wav",
+        "audio_length_seconds": 6.123333333333333,
+        "config_name": "High Stability (Low Variation)"
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.25,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 12,
+          "max_ref_len": 12,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p25_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_12_max_ref_len_12_enable_text_splitting_False.wav",
+        "audio_length_seconds": 8.491333333333333,
+        "config_name": "Balanced (Natural Voice)"
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.5,
+          "repetition_penalty": 8.0,
+          "top_k": 75,
+          "top_p": 0.9,
+          "gpt_cond_len": 15,
+          "max_ref_len": 10,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p5_repetition_penalty_8p0_top_k_75_top_p_0p9_gpt_cond_len_15_max_ref_len_10_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p5_repetition_penalty_8p0_top_k_75_top_p_0p9_gpt_cond_len_15_max_ref_len_10_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.334,
+        "config_name": "High Variety (Dynamic Voice)"
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.2,
+          "repetition_penalty": 12.0,
+          "top_k": 50,
+          "top_p": 0.8,
+          "gpt_cond_len": 15,
+          "max_ref_len": 15,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p2_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_15_max_ref_len_15_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p2_repetition_penalty_12p0_top_k_50_top_p_0p8_gpt_cond_len_15_max_ref_len_15_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.099333333333333,
+        "config_name": "Enhanced Prosody (Timing Focus)"
+      },
+      {
+        "status": "success",
+        "parameters": {
+          "temperature": 0.3,
+          "repetition_penalty": 10.0,
+          "top_k": 50,
+          "top_p": 0.85,
+          "gpt_cond_len": 20,
+          "max_ref_len": 8,
+          "enable_text_splitting": false
+        },
+        "output_file": "sample_en_temperature_0p3_repetition_penalty_10p0_top_k_50_top_p_0p85_gpt_cond_len_20_max_ref_len_8_enable_text_splitting_False.wav",
+        "output_path": "E:\\vct\\Voice-Cloned-Translator\\deployment\\static\\para\\sample_en_temperature_0p3_repetition_penalty_10p0_top_k_50_top_p_0p85_gpt_cond_len_20_max_ref_len_8_enable_text_splitting_False.wav",
+        "audio_length_seconds": 5.75,
+        "config_name": "Word Elongation Focus"
+      }
+    ]
+  }
+}

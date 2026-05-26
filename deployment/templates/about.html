@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Voice Clone Translator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <div class="title">
+                <h1>Voice Clone Translator</h1>
+            </div>
+        </div>
+        <div class="navbar-links">
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('about') }}" class="active">About</a>
+            <a href="#">Contact</a>
+        </div>
+    </header>
+
+    <div class="big-container">
+        <div class="container" style="text-align: left;">
+            <h1>The Technology Behind the "Essence"</h1>
+            <p class="description">A deep dive into the high-performance pipeline powering this zero-shot translator.
+            </p>
+
+            <div class="stack-logo" style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 30px;">
+                <img src="/resource/pyO3.png" alt="Rust/PyO3" style="height: 75px; border-radius: 8px;">
+                <img src="/resource/logo_Whisper.jpg" alt="Whisper" style="height: 75px; border-radius: 8px;">
+                <img src="/resource/logo_Gemma2.png" alt="Gemma" style="height: 75px; border-radius: 8px;">
+                <img src="/resource/logo_coqui.png" alt="XTTS V2" style="height: 75px; border-radius: 8px;">
+            </div>
+
+            <div class="audio-comparison" style="display: flex; flex-direction: column; gap: 20px;">
+                <div class="audio-card">
+                    <h3>1. Rust Preprocessing</h3>
+                    <p>We use a custom-built <b>Rust module (via PyO3)</b> for faster audio processing without
+                        compromising on quality.</p>
+                </div>
+
+                <div class="audio-card">
+                    <h3>2. Whisper Transcription</h3>
+                    <p>The cleaned audio is passed to <b>OpenAI's Whisper (Base)</b>. We've optimized this stage to be
+                        3x faster on CPU while maintaining human-level accuracy in transcribing your speech into text.
+                    </p>
+                </div>
+
+                <div class="audio-card">
+                    <h3>3. Gemma Translation</h3>
+                    <p>For translation, we leverage <b>Ollama's Gemma 2 (2B)</b>. Local LLM acts as a professional
+                        translator, preserving the tone, nuance, and intent of your original message instead of just
+                        performing direct word-for-word translation without compromising your privacy.</p>
+                </div>
+
+                <div class="audio-card">
+                    <h3>4. XTTS V2 Cloning</h3>
+                    <p>The final "magic" happens with <b>XTTS V2</b>. Parameters tunned to clone voice with high
+                        quality.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">
+                <p>@2026 Voice Clone Translator. All rights reserved.</p>
+                <br>
+                <p>Major Project under CSJM University</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

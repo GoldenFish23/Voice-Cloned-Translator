@@ -1,5 +1,6 @@
 # best_xtts_clone_fixed.py
 # Fixed for latest TTS library (Dec 2025) — removes invalid 'sample_rate' param
+# Do not run the supporting reference file is misisng.
 
 from TTS.api import TTS
 import librosa
@@ -70,7 +71,7 @@ if __name__ == "__main__":
     The clarity, intonation, and natural breathing are preserved perfectly.
     This is what peak XTTS v2 performance sounds like in 2025.
     """
-
+    # print(f"{text}")
     generate_best_clone_cpu(
         text=text,
         reference_wav=reference,

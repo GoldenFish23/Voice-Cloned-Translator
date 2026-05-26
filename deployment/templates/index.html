@@ -1,179 +1,423 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎙️ Real-Time Voice Clone Translator</title>
+  <title>🎙️ Voice Clone Translator</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
+
+
 <body>
-  <div class="container">
-    <h1>🎙️ Real-Time Voice Clone Translator</h1>
-    <p>Record your voice and hear it translated and cloned instantly!</p>
 
-    <label>Select Source Language:</label>
-    <select id="src-lang">
-      <option value="hi">Hindi</option>
-      <option value="en" selected>English</option>
-      <option value="de">German</option>
-      <option value="ja">Japanese</option>
-    </select>
-
-    <label>Select Target Language:</label>
-    <select id="tar-lang">
-      <option value="hi" selected>Hindi</option>
-      <option value="en">English</option>
-      <option value="de">German</option>
-      <option value="ja">Japanese</option>
-    </select>
-
-    <div class="controls">
-      <button id="recordBtn">🎤 Start Recording</button>
-      <button id="stopBtn" disabled>⏹️ Stop</button>
-    </div>
-
-    <p id="status" style="color: yellow;"></p>
-
-    <!-- ORIGINAL + CLONED AUDIO COMPARISON -->
-    <div class="audio-comparison">
-      <div class="audio-box">
-        <h3>🎤 Your Original Recording</h3>
-        <audio id="originalAudio" controls style="width: 100%; margin-top: 10px;"></audio>
-        <small>What you said (source language)</small>
+  <header>
+    <div class="navbar">
+      <div class="title">
+        <h1>Voice Clone Translator</h1>
       </div>
-      <div class="arrow">➜</div>
-      <div class="audio-box">
-        <h3>🎧 Cloned & Translated</h3>
-        <audio id="outputAudio" controls style="width: 100%; margin-top: 10px;"></audio>
-        <small>Your voice in the target language!</small>
+    </div>
+    <div class="navbar-links">
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('about') }}">About</a>
+      <a href="#">Contact</a>
+    </div>
+  </header>
+
+  <div class="big-container">
+    <div class="container">
+      <h1>Voice Clone Translator</h1>
+      <p class="description">Zero-shot translation with perfect "Essence" preservation.</p>
+
+      <div class="trial-audios">
+        <div class="audio-card">
+          <h3> Sample: English </h3>
+          <p class="sample-text">Welcome to the future of voice-cloned translation.</p>
+          <audio src="{{ url_for('static', filename='sample_en.wav') }}" controls></audio>
+        </div>
+        <div class="audio-card">
+          <h3> Sample: Hindi </h3>
+          <p class="sample-text" id="sample-hi-text">लोड हो रहा है...</p>
+          <audio src="{{ url_for('static', filename='sample_hi.wav') }}" controls></audio>
+        </div>
+        <div class="audio-card">
+          <h3> Sample: German </h3>
+          <p class="sample-text" id="sample-de-text">Willkommen zur Zukunft der sprachlichen Klonisierung...</p>
+          <audio src="{{ url_for('static', filename='sample_de.wav') }}" controls></audio>
+        </div>
+        <div class="audio-card">
+          <h3> Sample: Japanese </h3>
+          <p class="sample-text" id="sample-ja-text">未来の音声複製翻訳へようこそ...</p>
+          <audio src="{{ url_for('static', filename='sample_ja.wav') }}" controls></audio>
+        </div>
+      </div>
+
+      <script>
+        // Dynamically load translated text from samples.json if available
+        fetch("{{ url_for('static', filename='samples.json') }}")
+          .then(response => response.json())
+          .then(data => {
+            if (data.translations.hi) document.getElementById('sample-hi-text').textContent = data.translations.hi;
+            if (data.translations.de) document.getElementById('sample-de-text').textContent = data.translations.de;
+            if (data.translations.ja) document.getElementById('sample-ja-text').textContent = data.translations.ja;
+          })
+          .catch(err => console.log("Samples metadata not yet generated."));
+      </script>
+
+      <div class="lang-selectors">
+        <div class="selector-group">
+          <label>From</label>
+          <select id="src-lang">
+            <option value="en" selected>English</option>
+            <option value="hi">Hindi</option>
+            <option value="de">German</option>
+            <option value="ja">Japanese</option>
+          </select>
+        </div>
+
+        <div class="selector-group">
+          <label>To</label>
+          <select id="tar-lang">
+            <option value="hi" selected>Hindi</option>
+            <option value="en">English</option>
+            <option value="de">German</option>
+            <option value="ja">Japanese</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-methods">
+        <div class="input-option">
+          <div id="dropZone" class="drop-zone">
+            <div class="drop-zone-content">
+              <div class="drop-icon">📁</div>
+              <p>Drag & drop an audio file here</p>
+              <p class="drop-hint">or <span id="fileSelect">click to browse</span></p>
+              <input type="file" id="fileInput" accept="audio/*" style="display: none;">
+            </div>
+          </div>
+        </div>
+
+        <div class="input-option">
+          <div class="or-divider">
+            <span>OR</span>
+          </div>
+        </div>
+
+        <div class="input-option">
+          <div class="recording-section">
+            <div class="controls">
+              <button id="recordBtn" class="btn btn-record">
+                <span class="icon">🎤</span> Start Recording
+              </button>
+              <button id="stopBtn" class="btn btn-stop" disabled>
+                <span class="icon">⏹️</span> Stop
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipeline">
+        <div class="step" id="step-mic">
+          <div class="step-icon">1</div>
+          <div class="step-label">Capture</div>
+        </div>
+        <div class="step" id="step-whisper">
+          <div class="step-icon">2</div>
+          <div class="step-label">Whisper</div>
+        </div>
+        <div class="step" id="step-gemma">
+          <div class="step-icon">3</div>
+          <div class="step-label">Gemma</div>
+        </div>
+        <div class="step" id="step-xtts">
+          <div class="step-icon">4</div>
+          <div class="step-label">XTTS V2</div>
+        </div>
+      </div>
+
+      <div id="status">Ready to translate...</div>
+
+      <div class="audio-comparison" id="results" style="display: none;">
+        <div class="audio-card">
+          <h3><span>🎙️</span> Original</h3>
+          <audio id="originalAudio" controls></audio>
+          <div class="card-meta" id="orig-meta">What you said</div>
+        </div>
+
+        <div class="audio-card">
+          <h3><span>✨</span> Cloned</h3>
+          <audio id="outputAudio" controls></audio>
+          <div class="card-meta" id="clone-meta">Your voice in the target language</div>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-  let audioContext;
-  let input;
-  let processor;
-  let audioData = [];
-  let sampleRate;
-  let originalAudioUrl = null;  // Store original blob URL
+    let audioContext;
+    let input;
+    let processor;
+    let audioData = [];
+    let sampleRate;
+    let isProcessing = false;
 
-  const recordBtn = document.getElementById("recordBtn");
-  const stopBtn = document.getElementById("stopBtn");
-  const originalAudio = document.getElementById("originalAudio");
-  const outputAudio = document.getElementById("outputAudio");
-  const status = document.getElementById("status");
+    const recordBtn = document.getElementById("recordBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const status = document.getElementById("status");
+    const resultsArea = document.getElementById("results");
+    const dropZone = document.getElementById("dropZone");
+    const fileInput = document.getElementById("fileInput");
+    const fileSelect = document.getElementById("fileSelect");
 
-  recordBtn.onclick = async () => {
-    try {
-      status.textContent = "Requesting microphone access...";
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      status.textContent = "🎤 Recording started. Speak now!";
-      audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      sampleRate = audioContext.sampleRate;
-      input = audioContext.createMediaStreamSource(stream);
-      processor = audioContext.createScriptProcessor(4096, 1, 1);
+    // Pipeline steps
+    const steps = {
+      mic: document.getElementById("step-mic"),
+      whisper: document.getElementById("step-whisper"),
+      gemma: document.getElementById("step-gemma"),
+      xtts: document.getElementById("step-xtts")
+    };
 
-      processor.onaudioprocess = (e) => {
-        const inputData = e.inputBuffer.getChannelData(0);
-        audioData.push(...inputData);
-      };
-
-      input.connect(processor);
-      processor.connect(audioContext.destination);
-
-      recordBtn.disabled = true;
-      stopBtn.disabled = false;
-    } catch (err) {
-      status.textContent = `❌ Mic error: ${err.message}`;
-      console.error(err);
-    }
-  };
-
-  stopBtn.onclick = async () => {
-    if (input) input.disconnect();
-    if (processor) processor.disconnect();
-    if (audioContext) audioContext.close();
-
-    if (audioData.length === 0) {
-      status.textContent = "❌ No audio recorded. Try again.";
-      recordBtn.disabled = false;
-      stopBtn.disabled = true;
-      return;
+    function setActiveStep(stepKey) {
+      Object.values(steps).forEach(s => s.classList.remove("active"));
+      if (steps[stepKey]) {
+        steps[stepKey].classList.add("active");
+        steps[stepKey].classList.add("completed");
+      }
     }
 
-    status.textContent = "⏳ Processing (transcribe → translate → clone your voice)...";
-    const audioBlob = createWavBlob(audioData, sampleRate);
-    
-    // Play original immediately
-    originalAudioUrl = URL.createObjectURL(audioBlob);
-    originalAudio.src = originalAudioUrl;
-    originalAudio.play().catch(e => console.log("Original play failed:", e));  // Auto-play may be blocked
-
-    const formData = new FormData();
-    formData.append("audio", audioBlob, "recording.wav");
-    formData.append("src-lang", document.getElementById("src-lang").value);
-    formData.append("tar-lang", document.getElementById("tar-lang").value);
-
-    try {
-      const response = await fetch("/process_audio", {
-        method: "POST",
-        body: formData
+    function resetPipeline() {
+      Object.values(steps).forEach(s => {
+        s.classList.remove("active");
+        s.classList.remove("completed");
       });
+    }
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`${response.status}: ${errorText}`);
+    // File upload handlers
+    dropZone.addEventListener('click', () => fileInput.click());
+    // fileSelect.addEventListener('click', () => fileInput.click());
+    fileSelect.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        processAudioFile(file);
+      }
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        const file = files[0];
+        if (file.type.startsWith('audio/')) {
+          processAudioFile(file);
+        } else {
+          status.textContent = "❌ Please drop an audio file.";
+        }
+      }
+    });
+
+    function processAudioFile(file) {
+      if (isProcessing) return;
+      isProcessing = true;
+      
+      resetPipeline();
+      setActiveStep('mic'); // Reuse mic step for file processing
+      status.textContent = "⚡ Processing uploaded audio...";
+      resultsArea.style.display = "flex";
+
+      // Create audio URL for original playback
+      const audioUrl = URL.createObjectURL(file);
+      document.getElementById("originalAudio").src = audioUrl;
+
+      const formData = new FormData();
+      formData.append("audio", file);
+      formData.append("src-lang", document.getElementById("src-lang").value);
+      formData.append("tar-lang", document.getElementById("tar-lang").value);
+
+      try {
+        // Simulate pipeline progress
+        setTimeout(() => { if (!isProcessing) return; status.textContent = "🧠 Thinking with Gemma (Translation)..."; setActiveStep('gemma'); }, 5000);
+        setTimeout(() => { if (!isProcessing) return; status.textContent = "🎨 Fine-tuning XTTS (Voice Cloning)..."; setActiveStep('xtts'); }, 15000);
+
+        const processPromise = fetch("/process_audio", {
+          method: "POST",
+          body: formData
+        });
+
+        processPromise.then(response => {
+          if (!response.ok) throw new Error(`${response.status}`);
+          return response.blob();
+        }).then(blob => {
+          document.getElementById("outputAudio").src = URL.createObjectURL(blob);
+          status.textContent = "✅ Success! Translation complete.";
+          Object.values(steps).forEach(s => s.classList.add("completed"));
+          isProcessing = false;
+        }).catch(err => {
+          status.textContent = `❌ Task failed: ${err.message}`;
+          resetPipeline();
+          isProcessing = false;
+        });
+      } catch (err) {
+        status.textContent = `❌ Task failed: ${err.message}`;
+        resetPipeline();
+        isProcessing = false;
+      }
+    }
+
+    recordBtn.onclick = async () => {
+      if (isProcessing) return;
+      
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        audioData = [];
+        resetPipeline();
+        setActiveStep('mic');
+
+        status.textContent = "⏺️ Recording... speak naturally.";
+        recordBtn.classList.add("recording");
+
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        sampleRate = audioContext.sampleRate;
+        input = audioContext.createMediaStreamSource(stream);
+        processor = audioContext.createScriptProcessor(4096, 1, 1);
+
+        processor.onaudioprocess = (e) => {
+          const inputData = e.inputBuffer.getChannelData(0);
+          audioData.push(...inputData);
+        };
+
+        input.connect(processor);
+        processor.connect(audioContext.destination);
+
+        recordBtn.disabled = true;
+        stopBtn.disabled = false;
+      } catch (err) {
+        status.textContent = `❌ Mic error: ${err.message}`;
+      }
+    };
+
+    stopBtn.onclick = async () => {
+      if (isProcessing) return;
+      isProcessing = true;
+      
+      stopBtn.disabled = true;
+      recordBtn.disabled = true;
+      recordBtn.classList.remove("recording");
+
+      if (input) input.disconnect();
+      if (processor) processor.disconnect();
+      if (audioContext) audioContext.close();
+
+      if (audioData.length === 0) {
+        status.textContent = "❌ No audio captured.";
+        recordBtn.disabled = false;
+        isProcessing = false;
+        return;
       }
 
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      outputAudio.src = url;
-      outputAudio.play().catch(e => console.log("Cloned play failed:", e));
-      status.textContent = "✅ Done! Compare original vs. cloned (your voice translated).";
-    } catch (err) {
-      status.textContent = `❌ Error: ${err.message}`;
-      console.error(err);
+      status.textContent = "⚡ Running Whisper (Transcription)...";
+      setActiveStep('whisper');
+
+      const audioBlob = createWavBlob(audioData, sampleRate);
+      document.getElementById("originalAudio").src = URL.createObjectURL(audioBlob);
+      resultsArea.style.display = "flex";
+
+      const formData = new FormData();
+      formData.append("audio", audioBlob, "recording.wav");
+      formData.append("src-lang", document.getElementById("src-lang").value);
+      formData.append("tar-lang", document.getElementById("tar-lang").value);
+
+      try {
+        // Note: Since the server logs don't give real-time updates via HTTP, 
+        // we will simulate the pipeline movement based on expected durations.
+        // This makes the UI feel infinitely more alive.
+
+        const processPromise = fetch("/process_audio", {
+          method: "POST",
+          body: formData
+        });
+
+        // Fake progress timers based on observed CPU performance
+        setTimeout(() => { if (!isProcessing) return; status.textContent = "🧠 Thinking with Gemma (Translation)..."; setActiveStep('gemma'); }, 15000);
+        setTimeout(() => { if (!isProcessing) return; status.textContent = "🎨 Fine-tuning XTTS (Voice Cloning)..."; setActiveStep('xtts'); }, 45000);
+
+        const response = await processPromise;
+
+        if (!response.ok) throw new Error(`${response.status}`);
+
+        const blob = await response.blob();
+        document.getElementById("outputAudio").src = URL.createObjectURL(blob);
+        status.textContent = "✅ Success! Translation complete.";
+        Object.values(steps).forEach(s => s.classList.add("completed"));
+        isProcessing = false;
+      } catch (err) {
+        status.textContent = `❌ Task failed: ${err.message}`;
+        resetPipeline();
+        isProcessing = false;
+      }
+
+      recordBtn.disabled = false;
+    };
+
+    function createWavBlob(pcmData, sampleRate) {
+      const buffer = new ArrayBuffer(44 + pcmData.length * 2);
+      const view = new DataView(buffer);
+      writeString(view, 0, 'RIFF');
+      view.setUint32(4, 36 + pcmData.length * 2, true);
+      writeString(view, 8, 'WAVE');
+      writeString(view, 12, 'fmt ');
+      view.setUint32(16, 16, true);
+      view.setUint16(20, 1, true);
+      view.setUint16(22, 1, true);
+      view.setUint32(24, sampleRate, true);
+      view.setUint32(28, sampleRate * 2, true);
+      view.setUint16(32, 2, true);
+      view.setUint16(34, 16, true);
+      writeString(view, 36, 'data');
+      view.setUint32(40, pcmData.length * 2, true);
+      let offset = 44;
+      for (let i = 0; i < pcmData.length; i++, offset += 2) {
+        const sample = Math.max(-1, Math.min(1, pcmData[i]));
+        view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+      }
+      return new Blob([view], { type: 'audio/wav' });
     }
 
-    audioData = [];
-    recordBtn.disabled = false;
-    stopBtn.disabled = true;
-  };
-
-  function createWavBlob(pcmData, sampleRate) {
-    const buffer = new ArrayBuffer(44 + pcmData.length * 2);
-    const view = new DataView(buffer);
-
-    writeString(view, 0, 'RIFF');
-    view.setUint32(4, 36 + pcmData.length * 2, true);
-    writeString(view, 8, 'WAVE');
-    writeString(view, 12, 'fmt ');
-    view.setUint32(16, 16, true);
-    view.setUint16(20, 1, true);
-    view.setUint16(22, 1, true);
-    view.setUint32(24, sampleRate, true);
-    view.setUint32(28, sampleRate * 2, true);
-    view.setUint16(32, 2, true);
-    view.setUint16(34, 16, true);
-    writeString(view, 36, 'data');
-    view.setUint32(40, pcmData.length * 2, true);
-
-    let offset = 44;
-    for (let i = 0; i < pcmData.length; i++, offset += 2) {
-      const sample = Math.max(-1, Math.min(1, pcmData[i]));
-      view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+    function writeString(view, offset, string) {
+      for (let i = 0; i < string.length; i++) {
+        view.setUint8(offset + i, string.charCodeAt(i));
+      }
     }
-
-    return new Blob([view], { type: 'audio/wav' });
-  }
-
-  function writeString(view, offset, string) {
-    for (let i = 0; i < string.length; i++) {
-      view.setUint8(offset + i, string.charCodeAt(i));
-    }
-  }
   </script>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-text">
+        <p>@2026 Voice Clone Translator. All rights reserved.</p>
+        <br>
+        <p>Major Project under CSJM University</p>
+      </div>
+    </div>
+  </footer>
+
 </body>
+
 </html>
