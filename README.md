@@ -15,6 +15,10 @@ The application leverages state-of-the-art machine learning models including Ope
 - **Modular Architecture**: Separates transcription, translation, and synthesis into distinct pipeline stages.
 - **Efficient Model Caching**: Loads and caches AI models to minimize latency for subsequent requests.
 
+## Preview
+
+[Listen to the audio](resource/English_translated_a1.wav)
+
 ## System Architecture
 
 The application follows a three-stage pipeline architecture:
