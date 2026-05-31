@@ -16,8 +16,8 @@ The application leverages state-of-the-art machine learning models including Ope
 - **Efficient Model Caching**: Loads and caches AI models to minimize latency for subsequent requests.
 
 ## Preview
-
-[Listen to the audio](resource/English_translated_a1.wav)
+[Original audio in Hindi](resource/Hindi_original_a1.wav)<br>
+[Translated audio in English](resource/English_translated_a1.wav)
 
 ## System Architecture
 
@@ -37,7 +37,7 @@ The application follows a three-stage pipeline architecture:
 
 - **Backend Framework**: Flask (Python)
 - **Speech-to-Text**: OpenAI Whisper (small model)
-- **Translation**: Google Gemma2 (2B parameters) via Ollama
+- **Translation**: Google Gemma4 via Ollama
 - **Text-to-Speech**: Coqui TTS XTTS v2
 - **Audio Processing**: SciPy, NumPy
 - **Frontend**: HTML, CSS, JavaScript (for audio recording)
