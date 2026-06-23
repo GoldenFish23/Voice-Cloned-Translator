@@ -8,6 +8,7 @@ The application leverages state-of-the-art machine learning models including Ope
 
 ## Preview
 ![Pipeline Overview](resource/Screenshot_2026-05-31_173743.png)
+[Links For Tested Audio ----->]<br>
 [Original audio in Hindi](resource/Hindi_original_a1.wav)<br>
 [Translated audio in English](resource/English_translated_a1.wav)
 
