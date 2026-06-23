@@ -9,10 +9,10 @@ The application leverages state-of-the-art machine learning models including Ope
 ## Preview
 ![Pipeline Overview](resource/Screenshot_2026-05-31_173743.png)
 [Links For Tested Audio ----->]<br>
-<audio src="resource/Hindi_original_a1.mp3">
-[Original audio in Hindi](resource/Hindi_original_a1.wav)<br>
-<audio src="resource/English_translated_a1.mp3">
-[Translated audio in English](resource/English_translated_a1.wav)
+
+[Original audio in Hindi](resource/Hindi_original_a1.mp3)<br>
+
+[Translated audio in English](resource/English_translated_a1.mp3)
 
 ## Features
 
