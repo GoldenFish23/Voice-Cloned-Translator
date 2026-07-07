@@ -7,7 +7,7 @@ Voice-Cloned Translator is a sophisticated web application designed to facilitat
 The application leverages state-of-the-art machine learning models including OpenAI's Whisper for speech-to-text transcription, Google's Gemma4 via Ollama for natural language translation, and Coqui TTS's XTTS v2 for high-quality voice cloning and text-to-speech synthesis.
 
 ## Preview
-![Pipeline Overview](resource/Screenshot_2026-05-31_173743.png)
+![Pipeline Overview](resource/Screenshot%202026-07-07%20171257.png)<br>
 [Links For Tested Audio ----->]<br>
 
 [Original audio in Hindi](resource/Hindi_original_a1.mp3)<br>
