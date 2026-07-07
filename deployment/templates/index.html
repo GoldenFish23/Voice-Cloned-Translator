@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎙️ Voice Clone Translator</title>
+  <title>Voice Dub Generator</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
@@ -15,7 +15,7 @@
   <header>
     <div class="navbar">
       <div class="title">
-        <h1>Voice Clone Translator</h1>
+        <h1>VDG</h1>
       </div>
     </div>
     <div class="navbar-links">
@@ -25,11 +25,44 @@
     </div>
   </header>
 
-  <div class="big-container">
-    <div class="container">
-      <h1>Voice Clone Translator</h1>
-      <p class="description">Zero-shot translation with perfect "Essence" preservation.</p>
+  <div class="container">
+    <div class="introduction">
+      <div class="subintro">
+        <h1>Want to Dub Audio?</h1>
+        <H3>Try VDG voice dubbing generator.</H3>
+        <p class="description">Use VDG, an AI powered voice dubbing generator to produce industry-grade dubbed audio fast and cheap without compromise with quality.</p>
+        <button class="bigbutton">Try Now <Span>→</Span></button>
+      </div>
+      <div class="animation">
+        <svg width="200" height="100" viewBox="0 0 90 100" xmlns="http://www.w3.org/2000/svg">
+          <!-- Bar 1 -->
+          <rect x="0" y="60" width="20" height="20" rx="5" fill="dodgerblue">
+            <animate attributeName="y" values="60;40;60" dur="1s" repeatCount="indefinite" />
+            <animate attributeName="height" values="20;40;20" dur="1s" repeatCount="indefinite" />
+          </rect>
 
+          <!-- Bar 2 -->
+          <rect x="40" y="60" width="20" height="20" rx="5" fill="tomato">
+            <animate attributeName="y" values="60;30;60" dur="0.8s" repeatCount="indefinite" />
+            <animate attributeName="height" values="20;50;20" dur="0.8s" repeatCount="indefinite" />
+          </rect>
+
+          <!-- Bar 3 -->
+          <rect x="80" y="60" width="20" height="20" rx="5" fill="limegreen">
+            <animate attributeName="y" values="60;20;60" dur="0.6s" repeatCount="indefinite" />
+            <animate attributeName="height" values="20;60;20" dur="0.6s" repeatCount="indefinite" />
+          </rect>
+
+          <!-- Bar 4 -->
+          <rect x="120" y="60" width="20" height="20" rx="5" fill="gold">
+            <animate attributeName="y" values="60;35;60" dur="1.2s" repeatCount="indefinite" />
+            <animate attributeName="height" values="20;45;20" dur="1.2s" repeatCount="indefinite" />
+          </rect>
+        </svg>
+      </div>
+    </div>
+    <div class="trial-section">
+      <h2>Free Trial</h2>
       <div class="trial-audios">
         <div class="audio-card">
           <h3> Sample: English </h3>
@@ -109,10 +142,10 @@
           <div class="recording-section">
             <div class="controls">
               <button id="recordBtn" class="btn btn-record">
-                <span class="icon">🎤</span> Start Recording
+                Start Recording
               </button>
               <button id="stopBtn" class="btn btn-stop" disabled>
-                <span class="icon">⏹️</span> Stop
+                Stop Recording
               </button>
             </div>
           </div>
@@ -142,18 +175,18 @@
 
       <div class="audio-comparison" id="results" style="display: none;">
         <div class="audio-card">
-          <h3><span>🎙️</span> Original</h3>
+          <h3>Original Audio</h3>
           <audio id="originalAudio" controls></audio>
           <div class="card-meta" id="orig-meta">What you said</div>
         </div>
 
         <div class="audio-card">
-          <h3><span>✨</span> Cloned</h3>
+          <h3>Dubbed Audio</h3>
           <audio id="outputAudio" controls></audio>
           <div class="card-meta" id="clone-meta">Your voice in the target language</div>
         </div>
       </div>
-    </div>
+  </div>
   </div>
 
   <script>
@@ -229,7 +262,7 @@
         if (file.type.startsWith('audio/')) {
           processAudioFile(file);
         } else {
-          status.textContent = "❌ Please drop an audio file.";
+          status.textContent = "{ Error Occured } : Please drop an audio file.";
         }
       }
     });
