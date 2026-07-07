@@ -24,13 +24,13 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  background: var(--glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
+  /* padding: 20px; */
+  /* background: var(--glass); */
+  /* backdrop-filter: blur(12px); */
+  /* -webkit-backdrop-filter: blur(12px); */
+  /* border: 1px solid var(--glass-border); */
   border-radius: 24px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  /* box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); */
   animation: fadeIn 0.8s ease-out;
   margin-bottom: 30px;
 }
@@ -55,7 +55,7 @@ header {
 
 
 body {
-  background: radial-gradient(circle at top right, #1e293b, #080a0f);
+  background: radial-gradient(circle at top right, #516f9b ,#1e293b, #080a0f);
   color: var(--text-main);
   font-family: 'Outfit', sans-serif;
   min-height: 100vh;
@@ -66,14 +66,14 @@ body {
   overflow-x: hidden;
 }
 
-.big-container {
+/* .big-container {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-.container {
+/* .container {
   width: 100%;
   max-width: 900px;
   background: var(--glass);
@@ -84,7 +84,7 @@ body {
   padding: 40px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   animation: fadeIn 0.8s ease-out;
-}
+} */
 
 h1 {
   font-weight: 700;
@@ -95,11 +95,65 @@ h1 {
   -webkit-text-fill-color: transparent;
 }
 
+h2{
+  margin: 0px 0px 20px 0px;
+  background: linear-gradient(to right, #00d2ff, #3a7bd5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h3{
+  margin:0px 0px 10px 0px;
+}
+
 .description {
   color: var(--text-dim);
-  margin-bottom: 30px;
+  margin-bottom: 1.1rem;
   font-size: 1.1rem;
 }
+
+.introduction{
+  /* height: 100vh; */
+  min-height: 50vh;
+  /* margin: 10vh 20vw 10vh 0px; */
+  display: flex;
+  justify-items: center;
+  flex-direction: column;
+}
+
+.subintro{
+  /* height: 100vh; */
+  /* min-height: 50vh; */
+  margin: 10vh 20vw 0vh 0px;
+  /* display: flex;
+  justify-items: center;
+  flex-direction: column; */
+}
+
+.bigbutton{
+  padding: 10px 18px;
+  margin: 0px 0px 20px 0px;
+  border-radius: 5px;
+  color: white;
+  background-color: #080a0f;
+  border-style: none;
+}
+
+.bigbutton:hover{
+  background-color: white;
+  color: #080a0f;
+  border:1px;
+}
+
+.animation svg{
+  width: fit-content;
+}
+
+.animation{
+  display: flex;
+  justify-content: right;
+}
+
 
 
 /* Stack Logo Styling */
@@ -530,3 +584,4 @@ footer {
   font-size: 0.85rem;
   color: var(--text-dim);
 }
+
